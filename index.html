@@ -343,15 +343,18 @@
             const tabsContainer = document.getElementById('tabs');
             tabsContainer.innerHTML = '';
 
-            Object.keys(categories).forEach((category, index) => {
+            const categoryList = Object.keys(categories);
+            categoryList.forEach((category, index) => {
                 const button = document.createElement('button');
                 button.className = `tab-button ${index === 0 ? 'active' : ''}`;
                 button.textContent = category;
-                button.onclick = () => switchTab(category);
+                button.onclick = function() {
+                    switchTab(category);
+                };
                 tabsContainer.appendChild(button);
             });
 
-            currentCategory = Object.keys(categories)[0];
+            currentCategory = categoryList[0];
         }
 
         function switchTab(category) {
@@ -366,7 +369,10 @@
             const newsContainer = document.getElementById('newsContainer');
             newsContainer.innerHTML = '<div class="loading">뉴스를 불러오는 중...</div>';
 
-            for (const [category, config] of Object.entries(categories)) {
+            const categoryList = Object.keys(categories);
+            
+            for (const category of categoryList) {
+                const config = categories[category];
                 allNews[category] = [];
 
                 for (const source of config.sources) {
@@ -439,12 +445,10 @@
             document.getElementById('updateTime').textContent = `마지막 업데이트: ${now.toLocaleString('ko-KR')}`;
         }
 
-        // 초기화
         initializeTabs();
         updateDateRange();
         loadNews();
 
-        // 30분마다 자동 새로고침
         updateInterval = setInterval(() => {
             loadNews();
         }, 30 * 60 * 1000);
