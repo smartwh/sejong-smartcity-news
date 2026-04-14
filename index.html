@@ -28,7 +28,7 @@
             color: white;
             padding: 40px 20px;
             border-radius: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
@@ -52,6 +52,67 @@
             display: flex;
             align-items: center;
             gap: 5px;
+        }
+
+        .search-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .search-button {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .search-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .search-button:active {
+            transform: translateY(0);
+        }
+
+        .search-info {
+            font-size: 0.85em;
+            color: #666;
+            white-space: nowrap;
         }
 
         .tabs {
@@ -196,6 +257,27 @@
                 font-size: 1.8em;
             }
 
+            .search-container {
+                flex-direction: column;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .search-button {
+                width: 100%;
+            }
+
+            .search-info {
+                text-align: center;
+                width: 100%;
+            }
+
             .tabs {
                 flex-direction: column;
             }
@@ -227,6 +309,21 @@
             </div>
         </div>
 
+        <div class="search-container">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="검색어를 입력하세요 (예: 세종, 스마트도시, AI 등)"
+                    onkeypress="if(event.key === 'Enter') searchNaver()"
+                >
+                <button class="search-button" onclick="searchNaver()">🔍 네이버 검색</button>
+            </div>
+            <div class="search-info">
+                💡 검색 결과는 네이버에서 열립니다
+            </div>
+        </div>
+
         <div class="tabs" id="tabs"></div>
 
         <div class="content">
@@ -245,7 +342,7 @@
                     { name: '중부매일', url: 'http://www.jbnews.com/rss/allArticle.xml' },
                     { name: '세계일보(전국)', url: 'https://www.segye.com/Articles/RSSList/segye_local.xml' }
                 ],
-                keywords: ['세종', '세종시', '세종특별자치시', '행복도시', '세종시청', '세종 시장','세종 시의회', '세종 선거', '세종시청', '세종 공무원']
+                keywords: ['세종', '세종시', '세종특별자치시', '행복도시', '세종시청', '세종 시장', '세종 시의회', '세종 선거', '세종 공무원']
             },
             '스마트도시·정책': {
                 sources: [
@@ -285,13 +382,29 @@
                     { name: '정책브리핑', url: 'https://www.korea.kr/rss/policy.xml' },
                     { name: '에이블뉴스(정책)', url: 'https://www.ablenews.co.kr/rss/S1N11.xml' }
                 ],
-                keywords: ['공모', '공고', '사업', '정책', '공시', '모집', '지원', '채용', '보조금', '공개모집', '공모사업', 'AI시티', '스마트도시', '선도도시', '강소형', 인구소멸 사업', 'AI 실증 사업']
+                keywords: ['공모', '공고', '사업', '정책', '공시', '모집', '지원', '채용', '보조금', '공개모집', '공모사업', 'AI시티', '스마트도시', '선도도시', '강소형', '인구소멸 사업', 'AI 실증 사업']
             }
         };
 
         let allNews = {};
         let currentCategory = null;
         let updateInterval = null;
+
+        // 네이버 검색 함수
+        function searchNaver() {
+            const searchInput = document.getElementById('searchInput');
+            const query = searchInput.value.trim();
+
+            if (!query) {
+                alert('검색어를 입력해주세요!');
+                searchInput.focus();
+                return;
+            }
+
+            // 네이버 검색 URL로 이동
+            const naverSearchUrl = `https://search.naver.com/search.naver?query=${encodeURIComponent(query)}`;
+            window.open(naverSearchUrl, '_blank');
+        }
 
         async function fetchRSSFeed(url) {
             try {
