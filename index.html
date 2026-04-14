@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>세종 스마트도시 뉴스 모음 대시보드</title>
+    <title>세종 스마트도시 뉴스 대시보드</title>
     <style>
         * {
             margin: 0;
@@ -115,7 +115,7 @@
             white-space: nowrap;
         }
 
-        .tabs {
+        .tabs-container {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
@@ -124,6 +124,15 @@
             padding: 15px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            flex: 1;
         }
 
         .tab-button {
@@ -149,6 +158,54 @@
             color: white;
             border-color: #667eea;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .refresh-button {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .refresh-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .refresh-button:active {
+            transform: translateY(0);
+        }
+
+        .refresh-button.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .refresh-icon {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .refresh-button.loading .refresh-icon {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .content {
@@ -278,6 +335,11 @@
                 width: 100%;
             }
 
+            .tabs-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
             .tabs {
                 flex-direction: column;
             }
@@ -285,6 +347,11 @@
             .tab-button {
                 width: 100%;
                 text-align: center;
+            }
+
+            .refresh-button {
+                width: 100%;
+                justify-content: center;
             }
 
             .news-grid {
@@ -301,7 +368,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📰 세종 스마트도시 뉴스 모음 대시보드</h1>
+            <h1>📰 세종 스마트도시 뉴스 대시보드</h1>
             <div class="header-info">
                 <span>🔄 마지막 업데이트: <span id="lastUpdate">오전 10:22:08</span></span>
                 <span>📊 총 <span id="totalNews">0</span>개 기사</span>
@@ -324,7 +391,13 @@
             </div>
         </div>
 
-        <div class="tabs" id="tabs"></div>
+        <div class="tabs-container">
+            <div class="tabs" id="tabs"></div>
+            <button class="refresh-button" id="refreshBtn" onclick="refreshNews()">
+                <span class="refresh-icon">🔄</span>
+                다시불러오기
+            </button>
+        </div>
 
         <div class="content">
             <div id="newsContainer"></div>
@@ -355,7 +428,7 @@
                     { name: '세종시청(공식)', url: 'https://news.google.com/rss/search?q=세종%20시청&hl=ko&gl=KR&ceid=KR:ko' },
                     { name: '구글뉴스(세종)', url: 'https://news.google.com/rss/search?q=세종&hl=ko&gl=KR&ceid=KR:ko' }
                 ],
-                keywords: ['세종', '세종시', '세종특별자치시', '행복도시', '세종시청', '세종 시장', '세종 시의회', '세종 시의원','세종 선거', '세종 공무원']
+                keywords: ['세종', '세종시', '세종특별자치시', '행복도시', '세종시청', '세종 시장', '세종 시의회', '세종 선거', '세종 공무원']
             },
             '스마트도시·정책': {
                 sources: [
@@ -371,7 +444,7 @@
                     { name: '인터넷진흥원', url: 'https://kisa.or.kr/402' },
                     { name: '뉴스와이어(정부)', url: 'https://api.newswire.co.kr/rss/industry/1400' }
                 ],
-                keywords: ['스마트도시', '스마트시티', '행복도시', 'Smart City', '정책', '시범도시', '국가시범도시', 'AI 시티', 'AI 도시', '5-1생활권', '선도도시']
+                keywords: ['스마트도시', '스마트시티', '행복도시', '세종', 'Smart City', '정책', '사업', '시범도시', '국가시범도시', '5-1', '선도도시']
             },
             'AI·기술·과학': {
                 sources: [
@@ -414,7 +487,7 @@
                     { name: '정책브리핑', url: 'https://www.korea.kr/rss/policy.xml' },
                     { name: '에이블뉴스(정책)', url: 'https://www.ablenews.co.kr/rss/S1N11.xml' }
                 ],
-                keywords: ['공모', '공고', '사업', '정책', '공시', '모집', '지원',  '보조금', '공개모집', '공모사업', 'AI시티', '스마트도시', '선도도시', '강소형', '인구소멸 사업', 'AI 실증 사업']
+                keywords: ['공모', '공고', '사업', '정책', '공시', '모집', '지원', '채용', '보조금', '공개모집', '공모사업', 'AI시티', '스마트도시', '선도도시', '강소형', '인구소멸 사업', 'AI 실증 사업']
             }
         };
 
@@ -545,6 +618,17 @@
 
             updateLastUpdateTime();
             displayNews();
+        }
+
+        function refreshNews() {
+            const refreshBtn = document.getElementById('refreshBtn');
+            refreshBtn.classList.add('loading');
+            refreshBtn.disabled = true;
+
+            loadNews().then(() => {
+                refreshBtn.classList.remove('loading');
+                refreshBtn.disabled = false;
+            });
         }
 
         function displayNews() {
