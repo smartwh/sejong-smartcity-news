@@ -10,294 +10,208 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-            background: #f8f9fa;
-            color: #333;
-            padding: 2rem 1rem;
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
-        
+
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 2.5rem 2rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 40px 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
-        
+
         .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 0.8rem;
-            letter-spacing: -0.5px;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        
+
         .header-info {
             display: flex;
-            align-items: center;
-            gap: 2rem;
+            gap: 20px;
+            font-size: 0.9em;
+            margin-top: 15px;
             flex-wrap: wrap;
-            font-size: 13px;
-            opacity: 0.95;
         }
-        
-        .info-item {
+
+        .header-info span {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 5px;
         }
-        
-        .refresh-dot {
-            width: 8px;
-            height: 8px;
-            background: #4ade80;
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.1); }
-        }
-        
-        .tabs-container {
+
+        .tabs {
             display: flex;
-            gap: 0.8rem;
-            margin-bottom: 2rem;
-            overflow-x: auto;
-            border-bottom: 2px solid #e5e7eb;
-            padding-bottom: 0;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        
-        .tab {
-            padding: 1rem 1.5rem;
-            border: none;
-            background: transparent;
-            color: #666;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: 500;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-            white-space: nowrap;
-            position: relative;
-            bottom: -2px;
-        }
-        
-        .tab:hover {
+
+        .tab-button {
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            background: white;
             color: #333;
-            background: rgba(0,0,0,0.02);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
         }
-        
-        .tab.active {
+
+        .tab-button:hover {
+            border-color: #667eea;
             color: #667eea;
-            border-bottom-color: #667eea;
         }
-        
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .content {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
         .tab-content {
             display: none;
-            animation: fadeIn 0.3s ease;
         }
-        
+
         .tab-content.active {
             display: block;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
+
         .news-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
         }
-        
+
         .news-card {
             background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.3s ease;
             cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid #f0f0f0;
         }
-        
+
         .news-card:hover {
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
             border-color: #667eea;
         }
-        
-        .news-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 0.75rem;
-        }
-        
-        .news-title {
-            font-size: 15px;
-            font-weight: 600;
-            line-height: 1.45;
-            color: #1f2937;
-            flex: 1;
-        }
-        
-        .source-badge {
-            background: #f3f4f6;
-            color: #667eea;
-            padding: 0.3rem 0.7rem;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 600;
-            white-space: nowrap;
-            flex-shrink: 0;
-            border: 1px solid #e5e7eb;
-        }
-        
-        .news-description {
-            font-size: 13px;
+
+        .news-source {
+            display: inline-block;
+            background: #f0f0f0;
             color: #666;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-bottom: 8px;
+        }
+
+        .news-title {
+            font-size: 1.05em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-description {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
             line-height: 1.5;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            text-overflow: ellipsis;
         }
-        
-        .news-footer {
+
+        .news-meta {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            font-size: 12px;
-            color: #999;
-            padding-top: 0.75rem;
-            border-top: 1px solid #f0f0f0;
-        }
-        
-        .news-date {
-            display: flex;
             align-items: center;
-            gap: 0.3rem;
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
+            font-size: 0.85em;
             color: #999;
-            background: white;
-            border-radius: 10px;
-            border: 1px solid #f0f0f0;
         }
-        
-        .empty-state h3 {
-            color: #666;
-            margin-bottom: 0.5rem;
-            font-size: 16px;
+
+        .empty-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
         }
-        
+
+        .empty-message p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
         .loading {
             text-align: center;
-            padding: 2rem;
-            color: #999;
-        }
-        
-        .loading::after {
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            margin-left: 0.5rem;
-            border: 3px solid #f0f0f0;
-            border-top-color: #667eea;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            vertical-align: middle;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .error-message {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 4px solid #dc2626;
-            font-size: 13px;
-            margin-bottom: 1.5rem;
-        }
-        
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .stat-item {
-            background: rgba(102, 126, 234, 0.1);
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid rgba(102, 126, 234, 0.2);
-        }
-        
-        .stat-number {
-            font-size: 20px;
-            font-weight: 700;
-            color: #667eea;
-        }
-        
-        .stat-label {
-            font-size: 12px;
+            padding: 20px;
             color: #666;
-            margin-top: 0.3rem;
         }
-        
+
+        .update-time {
+            font-size: 0.85em;
+            color: #999;
+            margin-top: 10px;
+            text-align: center;
+        }
+
         @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                width: 100%;
+                text-align: center;
+            }
+
             .news-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .header {
-                padding: 1.5rem;
-            }
-            
-            .header h1 {
-                font-size: 22px;
-            }
-            
+
             .header-info {
-                gap: 1rem;
-                font-size: 12px;
-            }
-            
-            .tabs-container {
-                gap: 0.3rem;
-            }
-            
-            .tab {
-                padding: 0.8rem 1rem;
-                font-size: 13px;
+                flex-direction: column;
+                gap: 10px;
             }
         }
     </style>
@@ -305,279 +219,285 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🏙️ 세종 스마트도시 뉴스 대시보드</h1>
+            <h1>📰 세종 스마트도시 뉴스 대시보드</h1>
             <div class="header-info">
-                <div class="info-item">
-                    <div class="refresh-dot"></div>
-                    <span id="lastUpdate">초기화 중...</span>
-                </div>
-                <div class="info-item" id="totalNews">로딩 중...</div>
-                <div class="info-item" id="dateRange" style="font-size: 12px; color: rgba(255,255,255,0.8);">📅 최신 15일</div>
+                <span>🔄 마지막 업데이트: <span id="lastUpdate">오전 10:22:08</span></span>
+                <span>📊 총 <span id="totalNews">0</span>개 기사</span>
+                <span>📅 <span id="dateRange">2026.3.30. ~ 오늘</span></span>
             </div>
-            <div class="stats" id="stats"></div>
         </div>
-        
-        <div class="tabs-container" id="tabs"></div>
-        
-        <div id="content"></div>
+
+        <div class="tabs" id="tabs"></div>
+
+        <div class="content">
+            <div id="newsContainer"></div>
+            <div class="update-time" id="updateTime"></div>
+        </div>
     </div>
 
     <script>
-        // 뉴스 카테고리 설정 - Google News RSS 활용
         const categories = {
             '세종 지역뉴스': {
                 sources: [
-                    { name: '세종의소리', url: 'https://www.sjsori.com/rss/allArticle.xml' },
-                    { name: '구글뉴스(세종)', url: 'https://news.google.com/rss/search?q=%EC%84%B8%EC%A2%85&hl=ko&gl=KR&ceid=KR:ko' }
+                    { name: '한겨레', url: 'http://www.hani.co.kr/rss/' },
+                    { name: '연합뉴스(전국)', url: 'https://www.yna.co.kr/rss/local.xml' },
+                    { name: '뉴스와이어(충남)', url: 'https://api.newswire.co.kr/rss/region/3' },
+                    { name: '중부매일', url: 'http://www.jbnews.com/rss/allArticle.xml' },
+                    { name: '세계일보(전국)', url: 'https://www.segye.com/Articles/RSSList/segye_local.xml' }
                 ]
             },
-            '스마트도시 관련': {
+            '스마트도시·정책': {
                 sources: [
-                    { name: '세종의소리', url: 'https://www.sjsori.com/rss/allArticle.xml' },
-                    { name: '구글뉴스(스마트)', url: 'https://news.google.com/rss/search?q=%EC%8A%A4%EB%A7%88%ED%8A%B8%EB%8F%84%EC%8B%9C&hl=ko&gl=KR&ceid=KR:ko' }
+                    { name: '정책브리핑(정책)', url: 'https://www.korea.kr/rss/policy.xml' },
+                    { name: '정책브리핑(보도자료)', url: 'https://www.korea.kr/rss/pressrelease.xml' },
+                    { name: '뉴스와이어(산업)', url: 'https://api.newswire.co.kr/rss/industry/400' },
+                    { name: '뉴스와이어(기술)', url: 'https://api.newswire.co.kr/rss/industry/600' },
+                    { name: '뉴스와이어(정부)', url: 'https://api.newswire.co.kr/rss/industry/1400' }
                 ],
-                keywords: ['스마트도시', '스마트시티', '스마트', '도시', 'smart city']
+                keywords: ['스마트도시', '스마트시티', '행복도시', '세종', 'Smart City', '정책', '사업']
             },
-            'AI·기술·혁신': {
+            'AI·기술·과학': {
                 sources: [
-                    { name: '구글뉴스(AI)', url: 'https://news.google.com/rss/search?q=AI%20%E1%84%80%E1%85%B5%E1%84%89%E1%85%AE%E1%86%AF&hl=ko&gl=KR&ceid=KR:ko' },
-                    { name: '구글뉴스(기술)', url: 'https://news.google.com/rss/search?q=%EA%B8%B0%EC%88%A0%20%ED%98%81%EC%8B%A0&hl=ko&gl=KR&ceid=KR:ko' }
+                    { name: '한국경제(IT)', url: 'https://www.hankyung.com/feed/it' },
+                    { name: '전자신문(IT)', url: 'http://rss.etnews.com/03.xml' },
+                    { name: '전자신문(SW)', url: 'http://rss.etnews.com/04.xml' },
+                    { name: '아이뉴스24(IT)', url: 'http://www.inews24.com/rss/news_it.xml' },
+                    { name: '미디어오늘(IT)', url: 'https://www.mediatoday.co.kr/rss/S1N7.xml' }
                 ],
-                keywords: ['AI', '인공지능', '기술', '디지털', '혁신']
+                keywords: ['AI', '인공지능', '기술', '디지털', '혁신', '스마트', '데이터', '과학']
             },
-            '정책·공모·공고': {
+            '경제·산업': {
                 sources: [
+                    { name: '한국경제(경제)', url: 'https://www.hankyung.com/feed/economy' },
+                    { name: '연합뉴스(경제)', url: 'https://www.yna.co.kr/rss/economy.xml' },
+                    { name: '매일경제(경제)', url: 'https://www.mk.co.kr/rss/30100041/' },
+                    { name: '서울신문(경제)', url: 'https://www.seoul.co.kr/xml/rss/rss_economy.xml' },
+                    { name: '아시아경제', url: 'http://www.asiae.co.kr/news/rss/asia_rss.htm' }
+                ],
+                keywords: ['경제', '산업', '기업', '시장', '투자', '사업']
+            },
+            '공모·공고·채용': {
+                sources: [
+                    { name: '뉴스와이어(전체)', url: 'https://api.newswire.co.kr/rss/all' },
+                    { name: '뉴스와이어(사회)', url: 'https://api.newswire.co.kr/rss/industry/1900' },
+                    { name: '뉴스와이어(교육)', url: 'https://api.newswire.co.kr/rss/industry/1100' },
                     { name: '정책브리핑', url: 'https://www.korea.kr/rss/policy.xml' },
-                    { name: '세종의소리', url: 'https://www.sjsori.com/rss/allArticle.xml' }
+                    { name: '에이블뉴스(정책)', url: 'https://www.ablenews.co.kr/rss/S1N11.xml' }
                 ],
-                keywords: ['공모', '공고', '사업', '정책', '공시', '모집']
+                keywords: ['공모', '공고', '사업', '정책', '공시', '모집', '지원', '채용', '보조금', '공개모집']
+            },
+            '사회·생활': {
+                sources: [
+                    { name: '연합뉴스(사회)', url: 'https://www.yna.co.kr/rss/society.xml' },
+                    { name: '한겨레(사회)', url: 'http://www.hani.co.kr/rss/society/' },
+                    { name: '오마이뉴스(사회)', url: 'https://rss.ohmynews.com/rss/society.xml' },
+                    { name: '서울신문(사회)', url: 'https://www.seoul.co.kr/xml/rss/rss_society.xml' },
+                    { name: '동아일보(사회)', url: 'https://rss.donga.com/national.xml' }
+                ],
+                keywords: ['사회', '생활', '건강', '교육', '복지', '환경']
+            },
+            '교육·학습': {
+                sources: [
+                    { name: '한겨레(교육)', url: 'https://www.hani.co.kr/rss/education/' },
+                    { name: '오마이뉴스(교육)', url: 'https://rss.ohmynews.com/rss/education.xml' },
+                    { name: '에이블뉴스(정책)', url: 'https://www.ablenews.co.kr/rss/S1N11.xml' },
+                    { name: '미디어오늘(전체)', url: 'https://www.mediatoday.co.kr/rss/allArticle.xml' },
+                    { name: '세계일보(전체)', url: 'http://www.segye.com/Articles/RSSList/segye_recent.xml' }
+                ],
+                keywords: ['교육', '학습', '학교', '대학', '연수', '프로그램', '교과과정']
+            },
+            '문화·예술': {
+                sources: [
+                    { name: '한겨레(문화)', url: 'http://www.hani.co.kr/rss/culture/' },
+                    { name: '연합뉴스(문화)', url: 'https://www.yna.co.kr/rss/culture.xml' },
+                    { name: '오마이뉴스(문화)', url: 'https://rss.ohmynews.com/rss/culture.xml' },
+                    { name: '서울신문(연예)', url: 'https://www.seoul.co.kr/xml/rss/rss_entertainment.xml' },
+                    { name: '동아일보(문화)', url: 'https://rss.donga.com/culture.xml' }
+                ],
+                keywords: ['문화', '예술', '전시', '공연', '영화', '연극', '음악']
+            },
+            '국제·세계': {
+                sources: [
+                    { name: '연합뉴스(세계)', url: 'https://www.yna.co.kr/rss/international.xml' },
+                    { name: '한겨레(국제)', url: 'http://www.hani.co.kr/rss/international/' },
+                    { name: '오마이뉴스(국제)', url: 'https://rss.ohmynews.com/rss/international.xml' },
+                    { name: '서울신문(국제)', url: 'https://www.seoul.co.kr/xml/rss/rss_international.xml' },
+                    { name: '동아일보(국제)', url: 'https://rss.donga.com/international.xml' }
+                ],
+                keywords: ['국제', '세계', '해외', '글로벌', '외교', '통일']
+            },
+            '정치·시사': {
+                sources: [
+                    { name: '한겨레(정치)', url: 'http://www.hani.co.kr/rss/politics/' },
+                    { name: '연합뉴스(정치)', url: 'https://www.yna.co.kr/rss/politics.xml' },
+                    { name: '오마이뉴스(정치)', url: 'https://rss.ohmynews.com/rss/politics.xml' },
+                    { name: '서울신문(정치)', url: 'https://www.seoul.co.kr/xml/rss/rss_politics.xml' },
+                    { name: '프레시안(정치)', url: 'https://www.pressian.com/api/v3/site/rss/section/66' }
+                ],
+                keywords: ['정치', '정부', '국회', '시정', '정책', '선거', '시사']
             }
         };
 
         let allNews = {};
-        let updateInterval;
+        let currentCategory = null;
+        let updateInterval = null;
 
-        // RSS 파싱 (CORS 문제 대처)
-        async function fetchRSS(url) {
+        async function fetchRSSFeed(url) {
             try {
-                const response = await fetch(url, {
-                    headers: { 'Accept': 'application/rss+xml, application/xml' },
-                    method: 'GET'
-                });
-                
-                if (!response.ok) {
-                    console.warn(`RSS 불러오기 실패: ${url} (${response.status})`);
-                    return [];
-                }
-                
-                const text = await response.text();
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(text, 'text/xml');
-                
-                if (xmlDoc.getElementsByTagName('parsererror').length > 0) {
-                    console.warn('RSS 파싱 오류:', url);
-                    return [];
-                }
-                
-                const items = xmlDoc.querySelectorAll('item');
-                return Array.from(items).slice(0, 15).map(item => ({
-                    title: item.querySelector('title')?.textContent || '제목 없음',
-                    link: item.querySelector('link')?.textContent || '#',
-                    description: (item.querySelector('description')?.textContent || 
-                                item.querySelector('summary')?.textContent || '').replace(/<[^>]*>/g, '').substring(0, 150),
-                    pubDate: item.querySelector('pubDate')?.textContent || item.querySelector('updated')?.textContent || new Date().toISOString(),
-                    source: null
-                })).filter(n => n.link !== '#');
+                const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
+                if (!response.ok) return [];
+                const data = await response.json();
+                return data.items || [];
             } catch (error) {
-                console.error('RSS 오류:', error);
+                console.error(`RSS 피드 로드 실패: ${url}`, error);
                 return [];
             }
         }
 
-        // 뉴스 로드
-        async function loadNews() {
-            allNews = {};
-            const errors = [];
-            
-            for (const [category, config] of Object.entries(categories)) {
-                let newsArray = [];
-                
-                for (const source of config.sources) {
-                    try {
-                        const rssNews = await fetchRSS(source.url);
-                        const withSource = rssNews.map(n => ({ ...n, source: source.name }));
-                        newsArray.push(...withSource);
-                    } catch (err) {
-                        console.error(`${source.name} 로드 실패`, err);
-                    }
-                }
-                
-                // 키워드 필터링
-                if (config.keywords) {
-                    newsArray = newsArray.filter(news => {
-                        const text = (news.title + ' ' + news.description).toLowerCase();
-                        return config.keywords.some(keyword => text.includes(keyword.toLowerCase()));
-                    });
-                }
-                
-                // 중복 제거
-                newsArray = Array.from(new Map(newsArray.map(n => [n.link, n])).values());
-                
-                // 15일 이내의 뉴스만 필터링
-                const now = new Date();
-                const fifteenDaysAgo = new Date(now.getTime() - 15 * 24 * 60 * 60 * 1000);
-                
-                newsArray = newsArray.filter(news => {
-                    try {
-                        const newsDate = new Date(news.pubDate);
-                        return newsDate >= fifteenDaysAgo && newsDate <= now;
-                    } catch (e) {
-                        return true; // 날짜 파싱 실패시 포함
-                    }
-                });
-                
-                // 최신순 정렬
-                newsArray = newsArray.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-                
-                allNews[category] = newsArray;
-            }
-            
-            renderUI();
-            updateLastRefresh();
+        function filterNewsByDate(newsArray) {
+            const now = new Date();
+            const fifteenDaysAgo = new Date(now.getTime() - 15 * 24 * 60 * 60 * 1000);
+
+            return newsArray.filter(news => {
+                const newsDate = new Date(news.pubDate || news.published || 0);
+                return newsDate >= fifteenDaysAgo && newsDate <= now;
+            });
         }
 
-        // UI 렌더링
-        function renderUI() {
-            const tabsContainer = document.getElementById('tabs');
-            const contentContainer = document.getElementById('content');
-            const statsContainer = document.getElementById('stats');
-            
-            tabsContainer.innerHTML = '';
-            contentContainer.innerHTML = '';
-            
-            // 탭 생성
-            Object.keys(categories).forEach((category, index) => {
-                const button = document.createElement('button');
-                button.className = `tab ${index === 0 ? 'active' : ''}`;
-                button.textContent = `${category} (${allNews[category]?.length || 0})`;
-                button.onclick = () => switchTab(category);
-                tabsContainer.appendChild(button);
-            });
-            
-            // 콘텐츠 생성
-            Object.entries(allNews).forEach((entry, index) => {
-                const [category, news] = entry;
-                const div = document.createElement('div');
-                div.className = `tab-content ${index === 0 ? 'active' : ''}`;
-                div.id = `content-${category}`;
-                
-                if (news.length === 0) {
-                    div.innerHTML = `<div class="empty-state"><h3>📰 기사가 없습니다</h3><p>${category} 관련 기사를 찾을 수 없습니다.<br><small style="color:#999">(최신 15일 기준)</small></p></div>`;
-                } else {
-                    const newsGrid = document.createElement('div');
-                    newsGrid.className = 'news-grid';
-                    
-                    news.forEach(item => {
-                        const card = document.createElement('a');
-                        card.href = item.link;
-                        card.target = '_blank';
-                        card.rel = 'noopener noreferrer';
-                        card.className = 'news-card';
-                        
-                        const pubDate = new Date(item.pubDate);
-                        const timeStr = formatTime(pubDate);
-                        
-                        card.innerHTML = `
-                            <div class="news-header">
-                                <div class="news-title">${item.title}</div>
-                                <div class="source-badge">${item.source}</div>
-                            </div>
-                            <div class="news-description">${item.description || '내용을 불러올 수 없습니다.'}</div>
-                            <div class="news-footer">
-                                <div class="news-date">📅 ${timeStr}</div>
-                            </div>
-                        `;
-                        
-                        newsGrid.appendChild(card);
-                    });
-                    
-                    div.appendChild(newsGrid);
-                }
-                
-                contentContainer.appendChild(div);
-            });
-            
-            // 통계 업데이트
-            updateStats();
-        }
-
-        function switchTab(category) {
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
-            document.querySelectorAll('.tab').forEach(tab => {
-                if (tab.textContent.includes(category)) {
-                    tab.classList.add('active');
-                }
-            });
-            document.getElementById(`content-${category}`).classList.add('active');
-        }
-
-        function formatTime(date) {
+        function formatDate(dateString) {
+            const date = new Date(dateString);
             const now = new Date();
             const diffMs = now - date;
             const diffMins = Math.floor(diffMs / 60000);
             const diffHours = Math.floor(diffMs / 3600000);
             const diffDays = Math.floor(diffMs / 86400000);
-            
+
             if (diffMins < 1) return '방금 전';
             if (diffMins < 60) return `${diffMins}분 전`;
             if (diffHours < 24) return `${diffHours}시간 전`;
             if (diffDays === 1) return '어제';
-            if (diffDays < 7) return `${diffDays}일 전`;
-            
-            // 7일 이상이면 날짜로 표시
-            return date.toLocaleDateString('ko-KR', { 
-                month: 'short', 
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
+            if (diffDays < 15) return `${diffDays}일 전`;
+
+            return date.toLocaleDateString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
         }
 
-        function updateLastRefresh() {
+        function updateDateRange() {
             const now = new Date();
             const fifteenDaysAgo = new Date(now.getTime() - 15 * 24 * 60 * 60 * 1000);
-            
-            document.getElementById('lastUpdate').textContent = 
-                `마지막 업데이트: ${now.toLocaleTimeString('ko-KR')}`;
-            
-            const dateRangeText = `📅 ${fifteenDaysAgo.toLocaleDateString('ko-KR')} ~ 오늘`;
-            document.getElementById('dateRange').textContent = dateRangeText;
+            const start = fifteenDaysAgo.toLocaleDateString('ko-KR');
+            const end = now.toLocaleDateString('ko-KR');
+            document.getElementById('dateRange').textContent = `${start} ~ ${end}`;
         }
 
-        function updateStats() {
-            const statsContainer = document.getElementById('stats');
-            const statsHtml = Object.entries(allNews).map(([cat, news]) => 
-                `<div class="stat-item">
-                    <div class="stat-number">${news.length}</div>
-                    <div class="stat-label">${cat}</div>
-                </div>`
-            ).join('');
-            statsContainer.innerHTML = statsHtml;
-            
-            const total = Object.values(allNews).reduce((sum, arr) => sum + arr.length, 0);
-            document.getElementById('totalNews').innerHTML = `📊 총 <strong>${total}</strong>개 기사`;
+        function initializeTabs() {
+            const tabsContainer = document.getElementById('tabs');
+            tabsContainer.innerHTML = '';
+
+            Object.keys(categories).forEach((category, index) => {
+                const button = document.createElement('button');
+                button.className = `tab-button ${index === 0 ? 'active' : ''}`;
+                button.textContent = category;
+                button.onclick = () => switchTab(category);
+                tabsContainer.appendChild(button);
+            });
+
+            currentCategory = Object.keys(categories)[0];
         }
 
-        // 초기 로드
+        function switchTab(category) {
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            currentCategory = category;
+            displayNews();
+        }
+
+        async function loadNews() {
+            allNews = {};
+            const newsContainer = document.getElementById('newsContainer');
+            newsContainer.innerHTML = '<div class="loading">뉴스를 불러오는 중...</div>';
+
+            for (const [category, config] of Object.entries(categories)) {
+                allNews[category] = [];
+
+                for (const source of config.sources) {
+                    const items = await fetchRSSFeed(source.url);
+                    const processedItems = items.map(item => ({
+                        ...item,
+                        source: source.name,
+                        category: category,
+                        pubDate: item.pubDate || item.published || new Date().toISOString()
+                    }));
+
+                    allNews[category].push(...processedItems);
+                }
+
+                allNews[category] = filterNewsByDate(allNews[category]);
+
+                if (config.keywords) {
+                    allNews[category] = allNews[category].filter(news => {
+                        const text = (news.title + ' ' + (news.description || '')).toLowerCase();
+                        return config.keywords.some(keyword => text.includes(keyword.toLowerCase()));
+                    });
+                }
+
+                allNews[category].sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+            }
+
+            updateLastUpdateTime();
+            displayNews();
+        }
+
+        function displayNews() {
+            const newsContainer = document.getElementById('newsContainer');
+            const news = allNews[currentCategory] || [];
+
+            if (news.length === 0) {
+                newsContainer.innerHTML = '<div class="empty-message"><p>📭 기사가 없습니다</p><p>관련 기사를 찾을 수 없습니다.<br>(최신 15일 기준)</p></div>';
+                document.getElementById('totalNews').textContent = '0';
+                return;
+            }
+
+            const html = news.slice(0, 50).map(item => `
+                <a href="${item.link}" target="_blank" style="text-decoration: none; color: inherit;">
+                    <div class="news-card">
+                        <div class="news-source">${item.source}</div>
+                        <div class="news-title">${item.title || '제목 없음'}</div>
+                        <div class="news-description">${item.description ? item.description.replace(/<[^>]*>/g, '') : '내용 없음'}</div>
+                        <div class="news-meta">
+                            <span>${formatDate(item.pubDate)}</span>
+                            <span>→</span>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+
+            newsContainer.innerHTML = html;
+            updateTotalNews();
+        }
+
+        function updateTotalNews() {
+            let total = 0;
+            Object.values(allNews).forEach(newsArray => {
+                total += newsArray.length;
+            });
+            document.getElementById('totalNews').textContent = total;
+        }
+
+        function updateLastUpdateTime() {
+            const now = new Date();
+            document.getElementById('lastUpdate').textContent = now.toLocaleTimeString('ko-KR');
+            document.getElementById('updateTime').textContent = `마지막 업데이트: ${now.toLocaleString('ko-KR')}`;
+        }
+
+        // 초기화
+        initializeTabs();
+        updateDateRange();
         loadNews();
-        
+
         // 30분마다 자동 새로고침
-        updateInterval = setInterval(loadNews, 30 * 60 * 1000);
-        
-        // 페이지 언로드 시 타이머 정리
-        window.addEventListener('beforeunload', () => clearInterval(updateInterval));
+        updateInterval = setInterval(() => {
+            loadNews();
+        }, 30 * 60 * 1000);
     </script>
 </body>
 </html>
