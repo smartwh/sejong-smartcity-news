@@ -437,7 +437,7 @@
             </div>
         </div>
 
-        <!-- ✅ 공모사업 포탈 섹션 -->
+        <!-- ✅ 공모사업 포탈 섹션 (수정됨!) -->
         <div class="portals-section">
             <h2>🏛️ 중앙부처 & 지자체 공모사업 포탈</h2>
             <p>⭐ 정부 공식 포탈에서 정확한 공모 정보를 직접 확인하세요!</p>
@@ -450,11 +450,11 @@
                     <div class="portal-name">💻 과학기술정보통신부</div>
                     <div class="portal-desc">ICT/AI/스마트시티 관련 공모</div>
                 </a>
-                <a class="portal-card" href="https://www.molit.go.kr/USR/NEWS/m_69/list.jsp" target="_blank">
+                <a class="portal-card" href="https://www.molit.go.kr/portal.do?menuId=10219" target="_blank">
                     <div class="portal-name">🏗️ 국토교통부</div>
                     <div class="portal-desc">스마트도시/도시개발 공모</div>
                 </a>
-                <a class="portal-card" href="https://www.mss.go.kr/site/smba/ex/bbs/board.do?gcode=sub0403&ccode=2&menu_id=10" target="_blank">
+                <a class="portal-card" href="https://www.mss.go.kr/site/smba/ex/bbs/board.do?gcode=sub0403&ccode=1&menu_id=10" target="_blank">
                     <div class="portal-name">🏢 중소벤처기업부</div>
                     <div class="portal-desc">중소기업 지원사업/공모</div>
                 </a>
@@ -462,7 +462,7 @@
                     <div class="portal-name">🏛️ 세종특별자치시</div>
                     <div class="portal-desc">지역 공모사업/지원금</div>
                 </a>
-                <a class="portal-card" href="https://www.contest.go.kr/search?q=스마트도시" target="_blank">
+                <a class="portal-card" href="https://www.contest.go.kr/" target="_blank">
                     <div class="portal-name">🎯 공모전 대한민국</div>
                     <div class="portal-desc">정부 공모 통합 시스템</div>
                 </a>
@@ -644,7 +644,6 @@
         function filterNewsByDate(newsArray, category) {
             const now = new Date();
             
-            // 공모·공고는 6개월(180일), 다른 카테고리는 1개월(30일)
             const daysToFilter = (category === '공모·공고') ? 180 : 30;
             const filterDate = new Date(now.getTime() - daysToFilter * 24 * 60 * 60 * 1000);
 
@@ -729,7 +728,6 @@
                     allNews[category].push(...processedItems);
                 }
 
-                // 카테고리별 다른 기간 적용
                 allNews[category] = filterNewsByDate(allNews[category], category);
 
                 if (config.keywords) {
