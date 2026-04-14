@@ -423,7 +423,7 @@
                     { name: '세계일보(전국)', url: 'https://www.segye.com/Articles/RSSList/segye_local.xml' },
                     { name: '뉴스1(전국)', url: 'https://rss.news1.kr/rss/news1_all.xml' },
                     { name: '뉴시스(전국)', url: 'https://www.newsis.com/ns_rss.xml' },
-                    { name: '충청일보', url: 'https://www.ccdailynews.com/rss/allArticle.xml' },
+                    { name: '충청일보', url: 'https://www.ccdailynews.com/rss/allArticle.xml' },                    
                     { name: '프레시안(정책)', url: 'https://www.pressian.com/rss' },
                     { name: '세종시청(공식)', url: 'https://news.google.com/rss/search?q=세종%20시청&hl=ko&gl=KR&ceid=KR:ko' },
                     { name: '구글뉴스(세종)', url: 'https://news.google.com/rss/search?q=세종&hl=ko&gl=KR&ceid=KR:ko' }
@@ -442,6 +442,8 @@
                     { name: '국토부(뉴스)', url: 'https://www.molit.go.kr/dev/board/board_rss.jsp?rss_id=NEWS' },
                     { name: '국토부(공지)', url: 'https://www.molit.go.kr/dev/board/board_rss.jsp?rss_id=N01_B' },
                     { name: '조선일보(경제)', url: 'https://www.chosun.com/arc/outboundfeeds/rss/category/economy/?outputType=xml' },
+                    { name: '뉴시스(경제)', url: 'https://nwww.newsis.com/RSS/economy.xml' },
+                     { name: '뉴시스(산업)', url: 'https://nwww.newsis.com/RSS/industry.xml' },
                     { name: '동아일보(전체)', url: 'https://rss.donga.com/total.xml' },
                     { name: '인터넷진흥원', url: 'https://kisa.or.kr/402' },
                     { name: '구글뉴스', url: 'https://news.google.com/rss?hl=ko&gl=KR&ceid=KR:ko' },
@@ -488,6 +490,8 @@
                     { name: '조선일보(경제)', url: 'https://www.chosun.com/arc/outboundfeeds/rss/category/economy/?outputType=xml' },
                     { name: '동아일보(전체)', url: 'https://rss.donga.com/total.xml' },
                     { name: '인터넷진흥원', url: 'https://kisa.or.kr/402' },
+                    { name: '뉴시스(경제)', url: 'https://nwww.newsis.com/RSS/economy.xml' },
+                     { name: '뉴시스(산업)', url: 'https://nwww.newsis.com/RSS/industry.xml' },
                     { name: '중기부(정책)', url: 'https://www.mois.go.kr/gpms/view/jsp/rss/rss.jsp?ctxCd=1012' },
                     { name: '중기부(공고)', url: 'https://mss.go.kr/rss/smba/board/126.do' },
                     { name: '정책브리핑', url: 'https://www.korea.kr/rss/policy.xml' },
@@ -533,13 +537,16 @@
             }
         }
 
-        function filterNewsByDate(newsArray) {
+        function filterNewsByDate(newsArray, category) {
             const now = new Date();
-            const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+            
+            // 공모·공고는 3개월(90일), 다른 카테고리는 1개월(30일)
+            const daysToFilter = (category === '공모·공고') ? 90 : 30;
+            const filterDate = new Date(now.getTime() - daysToFilter * 24 * 60 * 60 * 1000);
 
             return newsArray.filter(news => {
                 const newsDate = new Date(news.pubDate || news.published || 0);
-                return newsDate >= thirtyDaysAgo && newsDate <= now;
+                return newsDate >= filterDate && newsDate <= now;
             });
         }
 
@@ -562,8 +569,10 @@
 
         function updateDateRange() {
             const now = new Date();
-            const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-            const start = thirtyDaysAgo.toLocaleDateString('ko-KR');
+            const currentCategory = Object.keys(categories)[0];
+            const daysToFilter = (currentCategory === '공모·공고') ? 90 : 30;
+            const filterDate = new Date(now.getTime() - daysToFilter * 24 * 60 * 60 * 1000);
+            const start = filterDate.toLocaleDateString('ko-KR');
             const end = now.toLocaleDateString('ko-KR');
             document.getElementById('dateRange').textContent = `${start} ~ ${end}`;
         }
@@ -616,7 +625,8 @@
                     allNews[category].push(...processedItems);
                 }
 
-                allNews[category] = filterNewsByDate(allNews[category]);
+                // ✅ category 매개변수 전달 (카테고리별 다른 기간 적용)
+                allNews[category] = filterNewsByDate(allNews[category], category);
 
                 if (config.keywords) {
                     allNews[category] = allNews[category].filter(news => {
@@ -648,7 +658,7 @@
             const news = allNews[currentCategory] || [];
 
             if (news.length === 0) {
-                newsContainer.innerHTML = '<div class="empty-message"><p>📭 기사가 없습니다</p><p>관련 기사를 찾을 수 없습니다.<br>(최신 30일 기준)</p></div>';
+                newsContainer.innerHTML = '<div class="empty-message"><p>📭 기사가 없습니다</p><p>관련 기사를 찾을 수 없습니다.<br>(최신 기간 기준)</p></div>';
                 document.getElementById('totalNews').textContent = '0';
                 return;
             }
